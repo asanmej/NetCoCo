@@ -68,8 +68,8 @@ spinnglass_neg <- function(edges, nodes, nombre_base, ruta_subcarpeta_estrato) {
       # Comparamos todos los pares únicos de particiones para medir la estabilidad
       for (i in 1:(ncol(membresias_gamma) - 1)) {
         for (j in (i + 1):ncol(membresias_gamma)) {
-          # Uso exclusivo de igraph::compare con el método de Información Mutua Ajustada
-          ami_par <- compare(membresias_gamma[, i], membresias_gamma[, j], method = "nmi")
+          # Información Mutua Ajustada (AMI): corrige el sesgo de la NMI hacia muchas comunidades pequeñas
+          ami_par <- aricode::AMI(membresias_gamma[, i], membresias_gamma[, j])
           valores_ami <- c(valores_ami, ami_par)
         }
       }
